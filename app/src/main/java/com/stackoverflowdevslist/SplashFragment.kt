@@ -10,7 +10,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.Navigation.findNavController
 
 class SplashFragment : Fragment() {
-    private var handler: Handler? = null
+    private lateinit var handler: Handler
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +30,7 @@ class SplashFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
-        handler!!.removeCallbacksAndMessages(null)
+        handler.removeCallbacksAndMessages(null)
     }
 
     private fun didFinishSplashScreen() {
