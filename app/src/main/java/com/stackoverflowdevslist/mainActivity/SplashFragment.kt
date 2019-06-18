@@ -1,4 +1,4 @@
-package com.stackoverflowdevslist
+package com.stackoverflowdevslist.mainActivity
 
 import android.os.Bundle
 import android.os.Handler
@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation.findNavController
+import com.stackoverflowdevslist.R
 
 class SplashFragment : Fragment() {
     private lateinit var handler: Handler

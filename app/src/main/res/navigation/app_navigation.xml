@@ -3,14 +3,14 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/app_navigation"
             app:startDestination="@id/splash_screen">
-    <fragment android:id="@+id/devList" android:name="com.stackoverflowdevslist.DevList"
+    <fragment android:id="@+id/devList" android:name="com.stackoverflowdevslist.mainActivity.DevList"
               android:label="fragment_dev_list" tools:layout="@layout/fragment_dev_list">
         <action android:id="@+id/action_devList_to_developer2" app:destination="@id/developer"/>
     </fragment>
-    <fragment android:id="@+id/splash_screen" android:name="com.stackoverflowdevslist.SplashFragment"
+    <fragment android:id="@+id/splash_screen" android:name="com.stackoverflowdevslist.mainActivity.SplashFragment"
               android:label="fragment_splash_sceen" tools:layout="@layout/fragment_splash_sceen">
         <action android:id="@+id/action_splash_screen_to_devList" app:destination="@id/devList"/>
     </fragment>
-    <fragment android:id="@+id/developer" android:name="com.stackoverflowdevslist.DeveloperFragment"
+    <fragment android:id="@+id/developer" android:name="com.stackoverflowdevslist.mainActivity.DeveloperFragment"
               android:label="fragment_developer" tools:layout="@layout/fragment_developer"/>
 </navigation>
