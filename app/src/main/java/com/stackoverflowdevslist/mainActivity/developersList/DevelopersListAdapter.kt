@@ -1,6 +1,6 @@
 package com.stackoverflowdevslist.mainActivity.developersList
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +9,7 @@ import android.widget.TextView
 import com.squareup.picasso.Picasso
 import com.stackoverflowdevslist.R
 
-class DevelopersListAdapter: RecyclerView.Adapter<DevelopersListAdapter.ViewHolder>() {
+class DevelopersListAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<DevelopersListAdapter.ViewHolder>() {
 
     private val items = ArrayList<DeveloperListElementViewModel>()
 
@@ -36,7 +36,7 @@ class DevelopersListAdapter: RecyclerView.Adapter<DevelopersListAdapter.ViewHold
 
     override fun getItemCount() = items.size
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
         var name: TextView = itemView.findViewById(R.id.name)
         var profileImage: ImageView = itemView.findViewById(R.id.profile_image)
     }

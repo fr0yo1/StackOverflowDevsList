@@ -2,7 +2,7 @@ package com.stackoverflowdevslist.mainActivity
 
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +10,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.Navigation.findNavController
 import com.stackoverflowdevslist.R
 
-class SplashFragment : Fragment() {
+class SplashFragment : androidx.fragment.app.Fragment() {
     private lateinit var handler: Handler
 
     override fun onCreateView(

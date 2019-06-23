@@ -11,6 +11,6 @@
               android:label="fragment_splash_sceen" tools:layout="@layout/fragment_splash_sceen">
         <action android:id="@+id/action_splash_screen_to_devList" app:destination="@id/devList"/>
     </fragment>
-    <fragment android:id="@+id/developer" android:name="com.stackoverflowdevslist.mainActivity.DeveloperFragment"
+    <fragment android:id="@+id/developer" android:name="com.stackoverflowdevslist.mainActivity.developerFragment.DeveloperFragment"
               android:label="fragment_developer" tools:layout="@layout/fragment_developer"/>
 </navigation>
