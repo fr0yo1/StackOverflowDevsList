@@ -35,7 +35,7 @@ class DevelopersFragment : androidx.fragment.app.Fragment() {
     }
 
     private fun setObservers() {
-        developersViewModel.getDevelopers().observe(this, Observer { devs ->
+        developersViewModel.developers.observe(this, Observer { devs ->
             devs?.let {
                 (developersRecyclerView.adapter as DevelopersListAdapter).setItems(devs)
             }

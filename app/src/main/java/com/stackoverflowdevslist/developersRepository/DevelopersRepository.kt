@@ -1,36 +1,42 @@
 package com.stackoverflowdevslist.developersRepository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import android.content.Context
+import androidx.lifecycle.LiveData
+import com.stackoverflowdevslist.persistance.AppDatabase
+import com.stackoverflowdevslist.persistance.DeveloperDao
 import com.stackoverflowdevslist.webServices.RetrofitClientInstance
 import com.stackoverflowdevslist.webServices.StackOverflowService
+import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DevelopersRepository {
+class DevelopersRepository(context: Context) {
 
-    private var api: StackOverflowService
-    private var developers = MutableLiveData<ArrayList<DeveloperModel>>()
+    var developers : LiveData<List<DeveloperModel>>
+
+    private val developersDAO: DeveloperDao = AppDatabase.getInstance(context).developerDao()
+    private val webAPI = RetrofitClientInstance.retrofit.create(StackOverflowService::class.java)
 
     init {
-        val retrofit = RetrofitClientInstance.retrofit
-        api = retrofit.create(StackOverflowService::class.java)
+        getDevelopersFromServer()
+        developers = developersDAO.getAll()
     }
 
-    fun getDevelopers(): LiveData<ArrayList<DeveloperModel>> {
-        api.getTopDevelopers().enqueue(object : Callback<DevelopersModel> {
+    private fun getDevelopersFromServer() {
+        webAPI.getTopDevelopers().enqueue(object : Callback<DevelopersModel> {
             override fun onFailure(call: Call<DevelopersModel>?, t: Throwable?) {
                 //TODO
             }
 
             override fun onResponse(call: Call<DevelopersModel>?, response: Response<DevelopersModel>?) {
-                developers.value = response?.body()?.developers
+                response?.body()?.developers?.let {
+                    runBlocking {
+                        developersDAO.insertAll(it)
+                    }
+                }
             }
         })
-
-        return developers
     }
 
     companion object {
@@ -38,7 +44,9 @@ class DevelopersRepository {
 
         fun getInstance(context: Context): DevelopersRepository =
             INSTANCE ?: synchronized(this) {
-                INSTANCE ?: DevelopersRepository().also { INSTANCE = it }
+                INSTANCE ?: DevelopersRepository(context).also {
+                    INSTANCE = it
+                }
             }
     }
 }
