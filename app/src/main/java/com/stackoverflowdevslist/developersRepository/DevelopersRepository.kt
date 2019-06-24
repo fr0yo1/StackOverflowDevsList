@@ -39,6 +39,10 @@ class DevelopersRepository(context: Context) {
         })
     }
 
+    fun getDeveloperWith(id: String): LiveData<DeveloperModel> {
+        return developersDAO.getDeveloperWith(id)
+    }
+
     companion object {
         @Volatile private var INSTANCE: DevelopersRepository? = null
 

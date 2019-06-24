@@ -12,7 +12,7 @@ import kotlinx.coroutines.withContext
 @Dao
 interface DeveloperDao {
     @Query("SELECT * FROM DeveloperModel WHERE user_id = :id")
-    suspend fun getDeveloperWith(id: String): DeveloperModel
+    fun getDeveloperWith(id: String): LiveData<DeveloperModel>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAll(developers: ArrayList<DeveloperModel>)

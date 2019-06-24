@@ -9,7 +9,12 @@ import android.widget.TextView
 import com.squareup.picasso.Picasso
 import com.stackoverflowdevslist.R
 
-class DevelopersListAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<DevelopersListAdapter.ViewHolder>() {
+class DevelopersListAdapter(private var listener: OnItemClickListener):
+    RecyclerView.Adapter<DevelopersListAdapter.ViewHolder>() {
+
+    interface OnItemClickListener {
+        fun didSelectUser(userId: String)
+    }
 
     private val items = ArrayList<DeveloperListElementViewModel>()
 
@@ -28,6 +33,15 @@ class DevelopersListAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<D
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.name.text = items[position].displayName
+        holder.view.tag = items[position].userId
+
+        val callback =  { _: View ->
+            listener.didSelectUser(holder.view.tag as String)
+        }
+
+        holder.view.setOnClickListener(callback)
+        holder.name.setOnClickListener(callback)
+
         Picasso.get()
             .load(items[position].profileImage)
             .placeholder(R.drawable.user_placeholder)
@@ -36,7 +50,8 @@ class DevelopersListAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<D
 
     override fun getItemCount() = items.size
 
-    class ViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var view = itemView
         var name: TextView = itemView.findViewById(R.id.name)
         var profileImage: ImageView = itemView.findViewById(R.id.profile_image)
     }

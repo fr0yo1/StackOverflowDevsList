@@ -5,7 +5,7 @@
             app:startDestination="@id/splash_screen">
     <fragment android:id="@+id/devList" android:name="com.stackoverflowdevslist.mainActivity.developersList.DevelopersFragment"
               android:label="fragment_dev_list" tools:layout="@layout/fragment_dev_list">
-        <action android:id="@+id/action_devList_to_developer2" app:destination="@id/developer"/>
+        <action android:id="@+id/action_devList_to_developer" app:destination="@id/developer"/>
     </fragment>
     <fragment android:id="@+id/splash_screen" android:name="com.stackoverflowdevslist.mainActivity.SplashFragment"
               android:label="fragment_splash_sceen" tools:layout="@layout/fragment_splash_sceen">

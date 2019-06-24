@@ -1,16 +1,36 @@
 package com.stackoverflowdevslist.mainActivity.developerFragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import com.squareup.picasso.Picasso
 import com.stackoverflowdevslist.R
+import com.stackoverflowdevslist.developersRepository.DeveloperModel
 
-private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM1 = "user_id"
 
 class DeveloperFragment : androidx.fragment.app.Fragment() {
     private var param1: String? = null
+
+    private lateinit var developerViewModel: DeveloperViewModel
+    private lateinit var userName: TextView
+    private lateinit var userProfileImage: ImageView
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(R.layout.fragment_developer, container, false)
+        userName = view.findViewById(R.id.userName)
+        userProfileImage = view.findViewById(R.id.userProfileImage)
+
+        return view
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,20 +39,26 @@ class DeveloperFragment : androidx.fragment.app.Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_developer, container, false)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        param1?.let {
+            developerViewModel =
+                ViewModelProviders.of(this, DeveloperViewModelFactory(param1!!, activity!!.application))
+                    .get(DeveloperViewModel::class.java)
+        }
+
+        setObservers()
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String) =
-            DeveloperFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                }
-            }
+    private fun setObservers() {
+        developerViewModel.developer.observe(this, Observer { developer ->
+            userName.text = developer.display_name
+
+            Picasso.get()
+                .load(developer.profile_image)
+                .placeholder(R.drawable.user_placeholder)
+                .into(userProfileImage)
+        })
     }
+
 }
