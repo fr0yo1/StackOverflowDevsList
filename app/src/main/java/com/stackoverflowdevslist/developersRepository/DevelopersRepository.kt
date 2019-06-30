@@ -31,7 +31,7 @@ class DevelopersRepository(context: Context) {
 
             override fun onResponse(call: Call<DevelopersModel>?, response: Response<DevelopersModel>?) {
                 response?.body()?.developers?.let {
-                    runBlocking {
+                    GlobalScope.launch(Dispatchers.IO) {
                         developersDAO.insertAll(it)
                     }
                 }
