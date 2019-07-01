@@ -3,24 +3,51 @@
              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context=".mainActivity.developerFragment.DeveloperFragment">
-    <androidx.constraintlayout.widget.ConstraintLayout
+             tools:context=".mainActivity.developerFragment.DeveloperFragment" android:id="@+id/frameLayout">
+    <androidx.constraintlayout.motion.widget.MotionLayout
+            app:layoutDescription="@xml/motion_scene"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
                 android:src="@drawable/user_placeholder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/userProfileImage" android:layout_marginTop="8dp"
-                app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="8dp"/>
+                android:id="@+id/userProfileImage"
+                android:layout_height="0dp" android:layout_width="0dp"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/userName" app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/userProfileImage"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintTop_toBottomOf="@+id/userProfileImage" android:textColor="@android:color/black"
+                android:textSize="21sp" android:fontFamily="sans-serif"
+                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="170dp"/>
+
+        <androidx.core.widget.NestedScrollView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/userName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="30dp" android:layout_marginBottom="16dp"
+                android:layout_marginStart="8dp" android:layout_marginEnd="8dp"
+                app:layout_constraintVertical_bias="0.0"
+                android:id="@+id/scrollView"
+                android:baselineAligned="false">
+            <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+                                                               android:layout_height="wrap_content">
+                <TextView
+                        android:text="@string/big_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 </FrameLayout>
