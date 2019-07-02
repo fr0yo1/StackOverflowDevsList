@@ -5,11 +5,15 @@
             app:startDestination="@id/splash_screen">
     <fragment android:id="@+id/devList" android:name="com.stackoverflowdevslist.mainActivity.developersList.DevelopersFragment"
               android:label="fragment_dev_list" tools:layout="@layout/fragment_dev_list">
-        <action android:id="@+id/action_devList_to_developer" app:destination="@id/developer"/>
+        <action android:id="@+id/action_devList_to_developer" app:destination="@id/developer"
+                app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
     <fragment android:id="@+id/splash_screen" android:name="com.stackoverflowdevslist.mainActivity.SplashFragment"
               android:label="fragment_splash_sceen" tools:layout="@layout/fragment_splash_sceen">
-        <action android:id="@+id/action_splash_screen_to_devList" app:destination="@id/devList"/>
+        <action android:id="@+id/action_splash_screen_to_devList" app:destination="@id/devList"
+                app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
     <fragment android:id="@+id/developer" android:name="com.stackoverflowdevslist.mainActivity.developerFragment.DeveloperFragment"
               android:label="fragment_developer" tools:layout="@layout/fragment_developer"/>
