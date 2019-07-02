@@ -6,8 +6,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.stackoverflowdevslist.developersRepository.DeveloperModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 @Dao
 interface DeveloperDao {

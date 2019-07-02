@@ -14,7 +14,6 @@ import com.squareup.picasso.Picasso
 import com.stackoverflowdevslist.R
 import com.stackoverflowdevslist.mainActivity.developersList.getTransitionNameForDeveloperName
 import com.stackoverflowdevslist.mainActivity.developersList.getTransitionNameForDeveloperProfile
-import java.lang.Exception
 
 private const val ARG_PARAM1 = "user_id"
 

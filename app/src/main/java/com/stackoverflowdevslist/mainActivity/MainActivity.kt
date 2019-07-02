@@ -1,7 +1,7 @@
 package com.stackoverflowdevslist.mainActivity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.stackoverflowdevslist.R
 
 class MainActivity : AppCompatActivity() {
