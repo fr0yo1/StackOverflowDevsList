@@ -8,6 +8,7 @@
         <OnSwipe
                 app:onTouchUp="stop"
                 app:dragDirection="dragUp"
+                app:touchAnchorSide="top"
                 app:touchAnchorId="@id/scrollView"/>
     </Transition>
 
