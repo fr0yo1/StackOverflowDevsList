@@ -8,9 +8,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.transition.TransitionInflater
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import com.stackoverflowdevslist.R
-import com.stackoverflowdevslist.developersRepository.DeveloperModel
+import com.stackoverflowdevslist.mainActivity.developersList.getTransitionNameForDeveloperName
+import com.stackoverflowdevslist.mainActivity.developersList.getTransitionNameForDeveloperProfile
+import java.lang.Exception
 
 private const val ARG_PARAM1 = "user_id"
 
@@ -29,6 +33,11 @@ class DeveloperFragment : androidx.fragment.app.Fragment() {
         userName = view.findViewById(R.id.userName)
         userProfileImage = view.findViewById(R.id.userProfileImage)
 
+        param1?.let { id ->
+            userName.transitionName = getTransitionNameForDeveloperName(id)
+            userProfileImage.transitionName = getTransitionNameForDeveloperProfile(id)
+        }
+
         return view
     }
 
@@ -37,6 +46,13 @@ class DeveloperFragment : androidx.fragment.app.Fragment() {
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
         }
+
+        setTransitions()
+    }
+
+    private fun setTransitions() {
+        postponeEnterTransition()
+        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -57,7 +73,16 @@ class DeveloperFragment : androidx.fragment.app.Fragment() {
             Picasso.get()
                 .load(developer.profile_image)
                 .placeholder(R.drawable.user_placeholder)
-                .into(userProfileImage)
+                .into(userProfileImage, object: Callback {
+                    override fun onSuccess() {
+                        startPostponedEnterTransition()
+                    }
+
+                    override fun onError(e: Exception?) {
+                        startPostponedEnterTransition()
+                    }
+                })
+
         })
     }
 

@@ -6,14 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.fragment.FragmentNavigator
 import com.squareup.picasso.Picasso
 import com.stackoverflowdevslist.R
+
+fun getTransitionNameForDeveloperName(id: String): String {
+    return "developerTextView$id"
+}
+
+fun getTransitionNameForDeveloperProfile(id: String): String {
+    return "developerImageView$id"
+}
 
 class DevelopersListAdapter(private var listener: OnItemClickListener):
     RecyclerView.Adapter<DevelopersListAdapter.ViewHolder>() {
 
     interface OnItemClickListener {
-        fun didSelectUser(userId: String)
+        fun didSelectUser(userId: String, extras: FragmentNavigator.Extras? = null)
     }
 
     private val items = ArrayList<DeveloperListElementViewModel>()
@@ -35,8 +44,15 @@ class DevelopersListAdapter(private var listener: OnItemClickListener):
         holder.name.text = items[position].displayName
         holder.view.tag = items[position].userId
 
+        holder.name.transitionName = getTransitionNameForDeveloperName(items[position].userId)
+        holder.profileImage.transitionName = getTransitionNameForDeveloperProfile(items[position].userId)
+
         val callback =  { _: View ->
-            listener.didSelectUser(holder.view.tag as String)
+            val extras = FragmentNavigator.Extras.Builder()
+                .addSharedElement(holder.profileImage, holder.profileImage.transitionName)
+                .addSharedElement(holder.name, holder.name.transitionName).build()
+
+            listener.didSelectUser(holder.view.tag as String, extras)
         }
 
         holder.view.setOnClickListener(callback)
